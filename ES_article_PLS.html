@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ES.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<style>
+
+#tab {display:none;}
+
+</style>
+<script>
+//masquer
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#tab").toggle();
+    $("#pic").toggle();
+  });
+});
+
+</script>
+</head>
+<h1 id="article-extrait-de-la-revue-span-class%22revue%22pour-la-sciencespan">Article extrait de la revue <span class="revue"><strong>Pour la science</strong></span></h1>
+<body>
+<h2 id="le-plancton-un-%C3%A9l%C3%A9ment-cl%C3%A9-de-la-biodiversit%C3%A9-marine-et-une-dune-grande-et-riche-diversit%C3%A9">Le plancton, un élément clé de la biodiversité marine et une d'une grande et riche diversité</h2>
+<p class="auteurs"><strong>Thème</strong> : Expédition Tara Oceans</p>
+<br>
+<br>
+Dans le cadre de notre thèse "influence des conditions physico-chimiques du milieu sur la biodiversité planctonique", Hervé Péenne, Rat Phaël et moi-même sommes partis un an à bord de la Goélette Tara, le but étant d'étudier la biodiversité planctonique à travers le monde et notamment entre les pôles pour pouvoir ainsi comparer les différents écosystèmes marins.  
+Mais avant toute chose, il s'agirait de définir ce qu'est le plancton : c'est un ensemble d'espèces dérivant au gré des courants marins et des vents. Il est donc composé de zoo-plancton (micro-organismes, algues, protozoaires, larves de poissons, crustacés, etc.) et de phyto-plancton (algues) mais aussi de bactéries et de virus.  
+Cette expédition regroupant de nombreux collègues nous a permis de récupérer pas moins de 35000 échantillons et nous a grandement avancé dans nos recherches, nous permettant de commencer à caractériser de mieux en mieux les différentes familles de planctons et analyser leurs fonctions. 
+<p>L'idée était basée sur un séquençage <span class="adn"><strong>ADN</strong></span> à haut débit et de techniques d'imageries performantes afin de comparer les gènes avec une base de données ou catalogue contenant 47 millions de gènes différents et ainsi les identifier.<br>
+Nous avons donc pu observer que la biodiversité planctonique était très différente entre les pôles et les tropiques, ce qui nous a ensuite permis de nous poser la question suivante : est-ce que la biodiversité planctonique est influencée par la latitude ?<br>
+En effet, on a pu observer au cours de nos analyses que selon les zones et les environnements, la biodiversité planctonique était très différente. Par exemple, on a pu observer que au niveau des pôles, la biodiversité planctonique était très faible, ce qui est logique puisque les conditions physico-chimiques sont très différentes de celles des tropiques par exemple qui elles sont très riches en nutriments et donc en diversité de plancton.<br>
+C'est donc pour ça que les eaux équatoriales sont les plus riches en diversité planctonique la ou cette diversité diminue en s'approchant des pôles. Cela dit, le principal facteur est la température de l'eau, car les milieux aquatiques à eau froide ayant une variété moindre comparée à celle des milieux à eau chaude, celle-ci est davantage dépendante de son environnement et a donc plus de difficultés à s'adapter à un réchauffement du milieu.</p>
+<br>
+<br>
+<h3 id="les-r%C3%A9sultats-de-nos-analyses-en-bref">Les résultats de nos analyses en bref :</h3>
+<p>A partir de 4 stations : les stations <strong>20</strong>,<strong>41</strong>,<strong>66</strong>, et <strong>109</strong> ainsi que leurs correspondances au niveau des espèces identifiées, nous avons tracé un graphique représentant la diversité planctonique des différentes staitons situées à différents coins du globe :</p>
+<!-- Images -->
+<div id="tab" class="tab">
+<p>Données relevées qui ont permis la contruction du graphe</p>
+<img src="https://media.discordapp.net/attachments/1070608349491646494/1070608437999833148/tab.jpg">
+</div>
+<div class="pic" id="pic">
+        <table>
+            <tr>
+                <th>Station</th>
+                <th>Chiffre correspondant</th>
+            </tr>
+            <tr>
+                <td>20</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>41</td>
+                <td>2</td>
+            </tr>
+            <tr>
+                <td>66</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>109</td>
+                <td>4</td>
+            </tr>
+            <tr>
+            </tr>
+        </table>
+    <p class="spoiler">Passer la souris sur l'image pour plus d'infos</p>
+    <img src='https://media.discordapp.net/attachments/1070608349491646494/1070608437769162842/graph.png'>
+    <p class="legende">Graphique représentant la diversité planctonique en fonction de la latitude</p>
+</div>
+<p><button>Afficher tableur / graphique</button></p>
+<br>
+<br>
+<p>
+D'après les documents et surtout du graphe, qui est plus explicite, on voit donc que selon les stations et leurs localisations, la diversité de plancton dans le milieu est complètement différente (station 41 contre station 109 par exemple). Parfois on ne trouve qu'une espèce unique tandis que dans d'autres cas, on peut en trouver de nombreuses. Cela montre la diversité possible et le changement selon les milieux aquatiques et climatiques.  
+</p>
+<br>
+<p>Nos recherches ont donc permis de confirmer que la biodiversité planctonique est influencée certes par la latitude, mais aussi par la température de l'eau, la profondeur, la salinité, la lumière, la présence de nutriments, etc... En effet ce n'est pas directement la latitude qui joue mais les conditions du milieux liées à celle-ci qui viennent favoriser ou non le développement des nombreuses espèces et ainsi donner des milieux d'une grande diversité.</p>
+<br>
+<br>
+<hr>
+<div class="mentions">
+<p><em>Article issu de la revue &quot;Pour la Science&quot; par <strong>Hervé Péenne</strong>, <strong>Rat Phaël</strong> et <strong>Thierry Cannement</strong> , étudiants en doctorats au <strong>Museum National d´Histoire Naturelle de Paris</strong></em></p>
+<p><em>Retrouvez nous sur notre site <a href="https://www.pourlascience.fr">https://www.pourlascience.fr</a></em></p>
+<br>
+<p>Par <span class="credits">DEROZE Clément</span>,<span class="credits">CRETIN Raphaël</span> et <span class="credits">FROEHLY Jean-Baptiste</span></p>
+</div>
+</body>
+<!-- CSS -->
+<style>
+
+:root {
+    --color : #ffffff;
+    --background : #252525;
+    --link : blueviolet;
+}
+
+body {
+    background-color : var(--background);
+    color : var(--color);
+    /* font-family : "Times New Roman", Times, serif; */
+    font-family : "cambria", georgia, serif;
+    font-size : 20px;
+    text-align : justify;
+    text-justify : inter-word;
+}
+
+h1 {
+    font-family : "Ubuntu", sans-serif;
+    text-align : center;
+    font-size : 30px;
+}
+
+h2 {
+    text-align : center;
+    font-size : 25px;
+    text-decoration : underline;
+}
+
+h3 {
+    text-align : left;
+    font-size : 20px;
+    text-decoration : underline;
+}
+
+a {
+    color : grey;
+}
+
+a:hover {
+    color : var(--link);
+    text-decoration : none;
+}
+
+table th {
+    background-color : var(background);
+    color : var(--color);
+    text-align : center;
+}
+
+img {
+    border-radius : 10px;
+}
+
+button {
+    background-color : var(--background);
+    color : var(--color);
+    border : 1px solid var(--color);
+    border-radius : 5px;
+    padding : 5px;
+    margin : 0 auto;
+    display : block;
+    font-size : 15px;
+    font-family : "Times New Roman", Times, serif;
+}
+
+button:hover {
+    background-color : var(--color);
+    color : var(--background);
+    cursor : pointer;
+}
+
+.tab {
+    width : 80%;
+    position : relative;
+    margin : 0 auto;
+    transition : 0.5s;
+}
+
+.tab:hover {
+    width : 100%;
+    transition : 0.5s;
+}
+
+.tab:hover img {
+    box-shadow : 0 0 10px var(--color);
+}
+
+.tab p {
+    text-align : center;
+    font-size : 15px;
+    font-family : "Helvetica", Arial, sans-serif;
+    text-decoration : underline;
+}
+
+.pic table {
+    width : 100%;
+    color : var(--color);
+    font-family : Helvetica, Arial, sans-serif;
+    font-size : 10px;
+    text-align : center;
+    position : relative;
+    visibility : hidden;
+}
+
+.pic {
+    width : 40%;
+    position : relative;
+    margin : 0 auto;
+    transition : 0.5s;
+}
+
+.pic .spoiler {
+    color : 
+    font-family : Arial, Helvetica, sans-serif;
+    font-size : 15px;
+    text-align : center;
+    position : relative;
+    top : 0;
+}
+
+.pic:hover .spoiler {
+    visibility : hidden;
+}
+
+.pic:hover img {
+    box-shadow : 0 0 10px var(--color);
+	
+}
+
+.pic:hover table {
+    visibility : visible;
+}
+
+.pic:hover {
+    width : 60%;
+    transition : 0.5s;
+}
+
+.legende {
+    font-family : Arial, Helvetica, sans-serif;
+    font-size : 15px;
+    text-align : center;
+}
+
+.mentions {
+    font-family : Arial, Helvetica, sans-serif;
+    font-size : 15px;
+    text-align : center;
+    position : relative;
+    bottom : 0;
+}
+
+.revue {
+    color : rgba(255, 0, 0, 0.863);
+}
+
+.auteurs {
+    font-famîly : Arial, Helvetica, sans-serif;
+    font-size : 15px;
+    text-align : center;
+}
+
+.credits {
+    font-family : Arial, Helvetica, sans-serif;
+    font-size : 15px;
+    text-align : center;
+    position : relative;
+}
+
+/* .revue rainbow */
+
+@keyframes rainbow {
+    0% {
+        color : red;
+    }
+    25% {
+        color : orange;
+    }
+    50% {
+        color : yellow;
+    }
+    75% {
+        color : green;
+    }
+    100% {
+        color : blue;
+    }
+}
+
+.credits {
+    animation : rainbow 6s infinite;
+}
+
+/* scrollbar */
+
+::-webkit-scrollbar {
+    width : 10px;
+}
+
+::-webkit-scrollbar-track {
+    background : var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background : var(--color);
+    border-radius : 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background : var(--link);
+    border-radius : 10px;
+}
+</style>
+</body>
+</html>
